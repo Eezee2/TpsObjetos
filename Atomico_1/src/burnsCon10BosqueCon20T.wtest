@@ -1,0 +1,46 @@
+import centrales.*
+import ciudades.*
+
+describe "BurnsCon10VarillasExBosqueCon20TyTodasLasCentralesEnSpringfield-SalvoHidroelectrica"{
+	fixture
+	{
+		burns.cantidadDeVarillas(10)
+		exBosque.capacidad(20000000)
+		burns.ciudad(springfield)
+		exBosque.ciudad(springfield)	
+		elSuspiro.ciudad(springfield)
+	}
+
+
+test "exBosqueProduce18,5MkwhEnSpringfield" {
+
+	assert.that(exBosque.produccionEnergetica()==18500000)
+}
+test "burnsProduce1MkwhEnSpringfield" {
+
+	assert.that(burns.produccionEnergetica()==1000000)
+}
+test "elSuspiroProduce2MkwhEnSpringfield" {
+
+	assert.that(elSuspiro.produccionEnergetica()==2000000)
+}
+test "centralesContaminantesEnSpringfieldEsSoloExBosque" {
+
+	assert.that(springfield.centralesContaminantes()==#{exBosque})
+}
+test "SpringfieldCubreSuNecesidadEnergeticaSiEs20Mkwh" {
+	springfield.necesidadEnergetica(20000000)
+	assert.that(springfield.cubrioSusNecesidades())
+}
+test "SpringfieldEstaEnElHornoSiSuNecesidadEs30Mkwh" {
+	springfield.necesidadEnergetica(30000000)
+	assert.that(springfield.estaEnElHorno())
+}
+test "LasCentralesMasProductorasDeLaRegionSonExBosqueEHidroelectrica" {
+
+	assert.that(region.centralesMasProductoras()==#{exBosque,hidroelectrica})
+}
+
+
+
+}
