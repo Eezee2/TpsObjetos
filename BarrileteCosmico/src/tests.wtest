@@ -1,0 +1,66 @@
+import barrileteCosmico.*
+import Destinos.*
+
+
+describe "Caso tipico"{
+	
+	
+	test "Los destinos mas importantes de barrilete cosmico son Garlics sea y Last Toninas" {
+
+	assert.equals(#{garlicsSea,lastToninas}, barrileteCosmico.destinosImportantes())
+	}
+	test "silver´s Sea es un destino peligroso (no lo es)"{
+		assert.notThat(silversSea.esDestinoPeligroso())
+	}
+	test "Barrilete cosmico es empresa extrema"{
+		assert.that(barrileteCosmico.esEmpresaExtrema())
+	}
+	
+}
+
+
+describe "aplicar un 25% de Last Toninas"{
+	
+fixture{
+		lastToninas.aplicarDescuento(25)
+}
+	
+test "aplicar 25% a las toninas da 2625"{
+
+	assert.equals(2625, lastToninas.costo())
+}
+
+test "aplicar 25% a las toninas, y esta tiene el Certificado de Descuento como equipaje imprescindible"{
+
+	assert.that(lastToninas.equipaje().contains("Certificado de descuento"))
+}
+	
+}
+describe "aplicar un 15% a todos los destinos"{
+	
+fixture{
+		barrileteCosmico.aplicarDescuento(15)
+}
+	test"Garlic´s Sea cuesta 2125"{
+		assert.equals(2125, garlicsSea.costo())
+		
+	}
+	test"Silver´s Sea cuesta 1147.5"{
+		assert.equals(1147.5, silversSea.costo())
+		
+	}
+	test"Last Toninas cuesta 2975"{
+		assert.equals(2975, lastToninas.costo())
+		
+	}
+	test"Good airs cuesta 1275"{
+		assert.equals(1275, goodAirs.costo())
+		
+	}
+	test"todos tienen el certificado"{
+		assert.equals(4,barrileteCosmico.destinos().filter({unDestino=>unDestino.equipaje().contains("Certificado de descuento")}).size())
+	}
+
+	
+}
+
