@@ -20,7 +20,7 @@ object springfield {
 	
 	method produccionDeEnergia()
 	{
-		return centrales.sum({central=>central.produccionEnergetica()})
+		return centrales.sum({central=>central.produccionEnergetica(self)})
 	}
 	 method cubrioSusNecesidades()
 	{
@@ -30,13 +30,11 @@ object springfield {
 	method estaEnElHorno()
 	{
 		const centralesContaminadas=self.centralesContaminantes()
-		return centralesContaminadas.sum({central=>central.produccionEnergetica()}) > necesidadEnergetica/2 || centralesContaminadas==centrales
+		return centralesContaminadas.sum({central=>central.produccionEnergetica(self)}) > necesidadEnergetica/2 || centrales.all({central=>central.centralesContaminantes()})
 	}
-	method centralMasProductora()
-	{
-		const maximoProducido= centrales.map({central=>central.produccionEnergetica()}).max()
-		//return centrales.filter({central=>central.produccionEnergetica()==maximoProducido})
-		return centrales.find({central=>central.produccionEnergetica()==maximoProducido})	
+	method centralMasProductiva()
+	{	
+		return centrales.max({central=>central.produccionEnergetica(self)})
 	}
 	method necesidadEnergetica(unaNecesidad){
 		necesidadEnergetica=unaNecesidad
@@ -45,7 +43,7 @@ object springfield {
 }
 object albuquerque{
 	const caudal=150
-	const centrales=hidroelectrica
+	const central=hidroelectrica
 	
 	method caudal()
 	{
@@ -54,22 +52,20 @@ object albuquerque{
 	method produccionDeEnergia()
 	{
 		
-		return centrales.produccionEnergetica()
+		return central.produccionEnergetica(self)
 	}
 
-	method centralMasProductora()
+	method centralMasProductiva()
 	{
-		return centrales
+		return central
 	}
 }
 
 object region{
 	const ciudades=[springfield,albuquerque]
-	const centralesMasProductoras=#{}
 	method centralesMasProductoras()
 	{
-		centralesMasProductoras.addAll(ciudades.map({ciudad=>ciudad.centralMasProductora()}))
-		return centralesMasProductoras
+		return 	ciudades.map({ciudad=>ciudad.centralMasProductiva()})
 	}
 }
 

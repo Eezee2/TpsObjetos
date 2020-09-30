@@ -2,10 +2,9 @@ import ciudades.*
 
 object burns {
 	var cantidadDeVarillas=10
-	var ciudad=springfield
-	
+
 	method construirEnCiudad(){}
-	method produccionEnergetica()
+	method produccionEnergetica(unaCiudad)
 	{
 		return cantidadDeVarillas*100000
 	}
@@ -16,20 +15,15 @@ object burns {
 	method cantidadDeVarillas(unasVarillas){
 		cantidadDeVarillas=unasVarillas
 	}
-	method ciudad(unaCiudad){
-		ciudad=unaCiudad
-	}
 
 }
 
 object exBosque {
 	var capacidad=20000
-	var ciudad=springfield
-
 	
-	method produccionEnergetica()
+	method produccionEnergetica(unaCiudad)
 	{
-		return 500000 + capacidad*(ciudad.riquezaDelSuelo())
+		return 500000 + capacidad*(unaCiudad.riquezaDelSuelo())
 	}
 	
 	method esContaminante()
@@ -39,9 +33,8 @@ object exBosque {
 	method capacidad(unaCapacidad){
 		capacidad=unaCapacidad
 	}
-	method ciudad(unaCiudad){
-		ciudad=unaCiudad
-	}
+
+	
 }
 
 object turbina1{
@@ -54,11 +47,10 @@ object turbina1{
 
 object elSuspiro {
 	const turbinas=[turbina1]
-	var ciudad=springfield
-	
-	method produccionEnergetica()
+
+	method produccionEnergetica(unaCiudad)
 	{
-		return turbinas.sum({turbina=>turbina.produccion(ciudad.velocidadDelViento())})
+		return turbinas.sum({turbina=>turbina.produccion(unaCiudad.velocidadDelViento())})
 	}
 
 	method esContaminante()
@@ -69,23 +61,19 @@ object elSuspiro {
 	{
 		turbinas.add(unaTurbina)
 	}
-	method ciudad(unaCiudad){
-		ciudad=unaCiudad
-	}
+
 }
 
 object hidroelectrica {
-	var ciudad=albuquerque
 	
-	method produccionEnergetica()
+	method produccionEnergetica(unaCiudad)
 	{
-		return 2000000*ciudad.caudal()
+		return 2000000*unaCiudad.caudal()
 	}
 
 	method esContaminante()
 	{
+		return false
 	}
-		method ciudad(unaCiudad){
-		ciudad=unaCiudad
-	}
+
 }

@@ -6,27 +6,24 @@ describe "BurnsCon10VarillasExBosqueCon20TyTodasLasCentralesEnSpringfield-SalvoH
 	{
 		burns.cantidadDeVarillas(10)
 		exBosque.capacidad(20000000)
-		burns.ciudad(springfield)
-		exBosque.ciudad(springfield)	
-		elSuspiro.ciudad(springfield)
 	}
 
 
 test "exBosqueProduce18,5MkwhEnSpringfield" {
 
-	assert.that(exBosque.produccionEnergetica()==18500000)
+	assert.equals(exBosque.produccionEnergetica(springfield),18500000)
 }
 test "burnsProduce1MkwhEnSpringfield" {
 
-	assert.that(burns.produccionEnergetica()==1000000)
+	assert.equals(burns.produccionEnergetica(springfield),1000000)
 }
 test "elSuspiroProduce2MkwhEnSpringfield" {
 
-	assert.that(elSuspiro.produccionEnergetica()==2000000)
+	assert.equals(elSuspiro.produccionEnergetica(springfield),2000000)
 }
 test "centralesContaminantesEnSpringfieldEsSoloExBosque" {
 
-	assert.that(springfield.centralesContaminantes()==#{exBosque})
+	assert.equals(springfield.centralesContaminantes(),#{exBosque})
 }
 test "SpringfieldCubreSuNecesidadEnergeticaSiEs20Mkwh" {
 	springfield.necesidadEnergetica(20000000)
@@ -38,7 +35,7 @@ test "SpringfieldEstaEnElHornoSiSuNecesidadEs30Mkwh" {
 }
 test "LasCentralesMasProductorasDeLaRegionSonExBosqueEHidroelectrica" {
 
-	assert.that(region.centralesMasProductoras()==#{exBosque,hidroelectrica})
+	assert.equals(region.centralesMasProductoras(),[exBosque,hidroelectrica])
 }
 
 
