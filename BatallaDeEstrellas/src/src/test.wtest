@@ -1,0 +1,120 @@
+import personajes.*
+import equipos.*
+
+describe"Personajes con energia inicial,Pamela y Tulipan en equipo
+ laCasaDeLaFlor y pocardo y toro en equipo danceBull"{
+
+test "lucha por primera vez Pamela y queda
+con 6400 de energia"{
+	
+	pamela.luchar(pocardo)
+	assert.equals(pamela.energia(),6400)
+}
+test "lucha por primera vez Pocardo y queda
+con 6100 de energia"{
+	
+	pocardo.luchar(pamela)
+	assert.equals(pocardo.energia(),6100)
+}
+test "lucha por primera vez Tulipan con Pocardo y Pocardo queda
+con 2800 de energia"{
+	
+	tulipan.luchar(pocardo)
+	assert.equals(pocardo.energia(),2800)
+}
+test "lucha por primera vez Toro con Pocardo y Pocardo queda
+con 5000 de energia"{
+	
+	toro.luchar(pocardo)
+	assert.equals(pocardo.energia(),5000)
+}
+test "lucha por primera vez Toro con Pocardo y Pocardo queda
+con Guitarra y Curitas en el cofre"{
+	
+	toro.luchar(pocardo)
+	assert.equals(pocardo.cofre(),["guitarra", "curitas"])
+}
+test "lucha por primera vez Toro con Pocardo y Toro queda
+con Cotonetes en el cofre"{
+	
+	toro.luchar(pocardo)
+	assert.equals(toro.cofre(),["cotonetes"])
+}
+
+test "lucha mano a mano Tulipan y Toro(ida y vuelta), Tulipan queda
+con 7600 de energia y Toro con 3900(la mitad)"{
+	
+	tulipan.luchar(toro)
+	toro.luchar(tulipan)
+	
+	assert.that(tulipan.energia()==7600 && toro.energia()==3900)
+	
+}
+test "lucha mano a mano Pamela y Pocardo(ida y vuelta), Pamela queda
+con 6400 de energia y Pocardo con 6100"{
+	
+	pamela.luchar(pocardo)
+	pocardo.luchar(pamela)
+	
+	assert.that(pamela.energia()==6400 && pocardo.energia()==6100)
+	
+}
+
+test "lucha Toro con Tulipan 3 veces y Toro queda con manguera y
+maceta en su cofre"{
+	
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	
+	assert.equals(toro.cofre(),["manguera","maceta"])
+	
+}
+test "lucha Toro con Tulipan 4 veces y Toro queda con manguera,
+maceta y rastrillo en su cofre, Tulipan queda vacio"{
+	
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	
+	assert.equals(toro.cofre(),["manguera","maceta","rastrillo"])
+	
+	}
+test "lucha Toro con Tulipan 4 veces y Tulipan queda vacio"{
+	
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	toro.luchar(tulipan)
+	
+	assert.equals(tulipan.cofre(),[])
+	
+	}
+	
+
+test "Combaten laCasaDeLaFlor y danceBull, gana laCasaDeLaFlor" {
+
+	assert.equals(combate.batalla(laCasaDeLaFlor,danceBull),["Aca pasó la Pamela", "Hora de cuidar a las plantas"])
+
+}
+
+}
+
+describe"Pamela y Pocardo (ambos con 10000 de energia inicial)en equipo 
+laCasaDeLaFlor y Tulipan y toro en equipo danceBull"{
+	
+ fixture{
+ 	pamela.energia(10000)
+ 	pocardo.energia(10000)
+ 	laCasaDeLaFlor.eliminarPersonaje(tulipan)
+ 	laCasaDeLaFlor.agregarPersonaje(pocardo)
+ 	danceBull.eliminarPersonaje(pocardo)
+ 	danceBull.agregarPersonaje(tulipan)
+ }
+ test "Combaten laCasaDeLaFlor y danceBull, gana laCasaDeLaFlor, gana danceBull"{
+ 	assert.that(combate.batalla(laCasaDeLaFlor,danceBull)==["No se metan con el toro", "Hora de cuidar a las plantas"])
+ }
+ }
+ 
+ 
